@@ -1,0 +1,25 @@
+body {
+    font-size: 1.1rem;
+}
+
+label,
+.control-label,
+.help-block,
+.checkbox,
+.radio {
+    font-size: 12px;
+    font-weight: bold
+}
+
+.btn {
+    color: white !important;
+    background-color: #213d77 !important;
+}
+
+a {
+    color: #213d77 !important;
+}
+
+.navbar-brand, .nav-link.active {
+    color: white !important;
+}

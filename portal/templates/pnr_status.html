@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}PNR Status{% endblock title %}
+
+{% block body %}
+<div class="container-fluid px-5">
+    <br><br><br>
+    <h3 style="text-transform: capitalize;">PNR Status</h3>
+    <hr>
+    <form>
+        <div class="row justify-content-center">
+            <div class="col-md-auto my-auto">
+                <label>Enter PNR</label>
+            </div>
+            <div class="col-md-auto">
+                <input class="form-control" name="pnr" type="number" value="{{request.GET.pnr}}" required>
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-primary">Get Status</button>
+            </div>
+        </div>
+    </form>
+
+    {% if booking %}
+    <br>
+    <hr>
+    <br>
+
+    <div class="row justify-content-center">
+        <div class="col-md">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>PNR</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{booking.pnr}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Train</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{booking.train}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>From</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{booking.source}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>To</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{booking.destination}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>date</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{booking.date}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-around font-weight-bold" style="font-size: 30px;">
+        <div class="col-md-3 my-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Status</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{booking.status}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Total Fare</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <i class="fa fa-inr" aria-hidden="true"></i>
+                        {{booking.total_fare}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    {% elif request.GET.pnr %}
+    <h4 class="text-danger text-center my-5">Booking Not Found With This PNR</h4>
+    {% endif %}
+
+</div>
+{% endblock body %}

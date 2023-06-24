@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Fare Calculator{% endblock title %}
+
+{% block body %}
+<div class="container-fluid px-5">
+    <br><br><br>
+    <h3 style="text-transform: capitalize;">Fare Calculator</h3>
+    <p style="text-transform: capitalize;">Get the Approximate Fare for you journey (actual may varries)</p>
+    <hr>
+
+    <div class="row justify-content-center">
+        <div class="col-md my-auto">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="col-md mb-3">
+                        <label>Train</label>
+                        <select class="form-control" name="train" required>
+                            {% for tr in train_list %}
+                            <option value="{{tr.0}} ({{tr.1}})">{{tr.0}} ({{tr.1}})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md mb-3">
+                        <label>Class</label>
+                        <select class="form-control" name="classs" required>
+                            {% for clas in classes %}
+                            <option value="{{clas.0}}">{{clas.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md mb-3">
+                        <label>From</label>
+                        <select class="form-control" name="source" required>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Mumbai">Mumbai</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md mb-3">
+                        <label>To</label>
+                        <select class="form-control" name="destination" required>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <hr>
+
+                <div class="form-row justify-content-center">
+                    <div class="col-md-auto mb-3">
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                    </div>
+                    <div class="col-md-auto mb-3">
+                        <button type="submit" class="btn btn-primary">Get Fare</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    {% if request.method == "POST" %}
+    <br>
+    <hr>
+    <br>
+
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Expected Fare</h5>
+                </div>
+                <div class="card-body text-center">
+                    <p class="card-text display-4 font-weight-bold">
+                        <i class="fa fa-inr" aria-hidden="true"></i>
+                        {{fare}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <br><br><br>
+
+</div>
+{% endblock body %}
+
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        $("select[name='source'] option[value='{{source}}']").prop("selected", true);
+        $("select[name='destination'] option[value='{{destination}}']").prop("selected", true);
+        $("select[name='classs'] option[value='{{classs}}']").prop("selected", true);
+        $("select[name='train'] option[value='{{train}}']").prop("selected", true);
+    });
+</script>
+{% endblock script %}
